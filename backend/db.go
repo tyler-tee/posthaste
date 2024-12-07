@@ -1,0 +1,119 @@
+package backend
+
+import (
+	"context"
+	"fmt"
+	"log"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
+    "github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
+	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
+)
+
+// DynamoDB client
+var dbClient *dynamodb.Client
+
+// Post struct to map to the DynamoDB schema
+type Post struct {
+	ID          string `json:"id"`          // DynamoDB field: id
+	PublishDate string `json:"publish_date"` // DynamoDB field: publish_date
+	Category    string `json:"category"`    // DynamoDB field: category
+	Content     string `json:"content"`     // DynamoDB field: content
+	Published   bool   `json:"published"`   // DynamoDB field: published
+	Slug        string `json:"slug"`        // DynamoDB field: slug
+	Tags        string `json:"tags"`        // DynamoDB field: tags
+	Title       string `json:"title"`       // DynamoDB field: title
+}
+
+// Initialize DynamoDB client
+func InitDynamoDB() {
+	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("us-east-2"))
+	if err != nil {
+		log.Fatalf("Unable to load AWS config: %v", err)
+	}
+
+	dbClient = dynamodb.NewFromConfig(cfg)
+	log.Println("DynamoDB client initialized")
+}
+
+// Fetch all posts
+func GetAllPosts() ([]Post, error) {
+	result, err := dbClient.Scan(context.TODO(), &dynamodb.ScanInput{
+		TableName: aws.String("articles"),
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to scan articles table: %w", err)
+	}
+
+	var posts []Post
+	for _, item := range result.Items {
+		var post Post
+		err := attributevalue.UnmarshalMap(item, &post)
+		if err != nil {
+			log.Printf("Unmarshal failed for item: %v, error: %v\n", item, err)
+			continue
+		}
+		posts = append(posts, post)
+	}
+	return posts, nil
+}
+
+// Add a new post
+func AddPost(post Post) error {
+	item, err := attributevalue.MarshalMap(post)
+	if err != nil {
+		return fmt.Errorf("failed to marshal post: %w", err)
+	}
+
+	_, err = dbClient.PutItem(context.TODO(), &dynamodb.PutItemInput{
+		TableName: aws.String("articles"),
+		Item:      item,
+	})
+	if err != nil {
+		return fmt.Errorf("failed to add post: %w", err)
+	}
+	return nil
+}
+
+// Fetch a post by ID
+func GetPostByID(id string) (*Post, error) {
+	result, err := dbClient.GetItem(context.TODO(), &dynamodb.GetItemInput{
+		TableName: aws.String("articles"),
+		Key: map[string]types.AttributeValue{
+			"id": &types.AttributeValueMemberS{Value: id},
+		},
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to get post by ID: %w", err)
+	}
+
+	if result.Item == nil {
+		return nil, fmt.Errorf("post with ID %s not found", id)
+	}
+
+	var post Post
+	err = attributevalue.UnmarshalMap(result.Item, &post)
+	if err != nil {
+		return nil, fmt.Errorf("failed to unmarshal post: %w", err)
+	}
+	return &post, nil
+}
+
+// Update a post
+func UpdatePost(post Post) error {
+	item, err := attributevalue.MarshalMap(post)
+	if err != nil {
+		return fmt.Errorf("failed to marshal post: %w", err)
+	}
+
+	_, err = dbClient.PutItem(context.TODO(), &dynamodb.PutItemInput{
+		TableName: aws.String("articles"),
+		Item:      item,
+	})
+	if err != nil {
+		return fmt.Errorf("failed to update post: %w", err)
+	}
+	return nil
+}

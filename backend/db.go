@@ -2,14 +2,18 @@ package backend
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
     "github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
+
+	"github.com/google/uuid"
 )
 
 // DynamoDB client
@@ -17,14 +21,14 @@ var dbClient *dynamodb.Client
 
 // Post struct to map to the DynamoDB schema
 type Post struct {
-	ID          string `json:"id"`          // DynamoDB field: id
-	PublishDate string `json:"publish_date"` // DynamoDB field: publish_date
-	Category    string `json:"category"`    // DynamoDB field: category
-	Content     string `json:"content"`     // DynamoDB field: content
-	Published   bool   `json:"published"`   // DynamoDB field: published
-	Slug        string `json:"slug"`        // DynamoDB field: slug
-	Tags        string `json:"tags"`        // DynamoDB field: tags
-	Title       string `json:"title"`       // DynamoDB field: title
+	ID          string `json:"id" dynamodbav:"id"`
+	PublishDate string `json:"publish_date" dynamodbav:"publish_date"`
+	Category    string `json:"category" dynamodbav:"category"`
+	Content     string `json:"content" dynamodbav:"content"`
+	Published   bool   `json:"published" dynamodbav:"published"`
+	Slug        string `json:"slug" dynamodbav:"slug"`
+	Tags        string `json:"tags" dynamodbav:"tags"`
+	Title       string `json:"title" dynamodbav:"title"`
 }
 
 // Initialize DynamoDB client
@@ -62,19 +66,35 @@ func GetAllPosts() ([]Post, error) {
 
 // Add a new post
 func AddPost(post Post) error {
-	item, err := attributevalue.MarshalMap(post)
-	if err != nil {
-		return fmt.Errorf("failed to marshal post: %w", err)
-	}
+    // Generate a unique UUID for the new post
+    post.ID = uuid.New().String()
 
-	_, err = dbClient.PutItem(context.TODO(), &dynamodb.PutItemInput{
-		TableName: aws.String("articles"),
-		Item:      item,
-	})
-	if err != nil {
-		return fmt.Errorf("failed to add post: %w", err)
-	}
-	return nil
+    // Validation: Ensure required fields are provided
+    if post.Title == "" || post.Content == "" {
+        return errors.New("title and content are required")
+    }
+
+    // Set default publish_date to today's date if not provided
+    if post.PublishDate == "" {
+        post.PublishDate = time.Now().Format("2006-01-02") // Format as YYYY-MM-DD
+    }
+
+    // Marshal post into DynamoDB-compatible format
+    item, err := attributevalue.MarshalMap(post)
+    if err != nil {
+        return fmt.Errorf("failed to marshal post: %w", err)
+    }
+
+    // Add the item to the DynamoDB table
+    _, err = dbClient.PutItem(context.TODO(), &dynamodb.PutItemInput{
+        TableName: aws.String("articles"),
+        Item:      item,
+    })
+    if err != nil {
+        return fmt.Errorf("failed to add post: %w", err)
+    }
+
+    return nil
 }
 
 // Fetch a post by ID

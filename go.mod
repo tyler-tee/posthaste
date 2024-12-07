@@ -9,6 +9,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/config v1.28.6
 	github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue v1.15.20
 	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.38.0
+	github.com/google/uuid v1.3.0
 	github.com/wailsapp/wails/v2 v2.9.2
 )
 
@@ -29,7 +30,6 @@ require (
 	github.com/bep/debounce v1.2.1 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
-	github.com/google/uuid v1.3.0 // indirect
 	github.com/jchv/go-winloader v0.0.0-20210711035445-715c2860da7e // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/labstack/echo/v4 v4.10.2 // indirect

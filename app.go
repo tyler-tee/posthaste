@@ -26,3 +26,8 @@ func (a *App) startup(ctx context.Context) {
 func (a *App) GetAllPosts() ([]backend.Post, error) {
 	return backend.GetAllPosts()
 }
+
+// AddPost adds a new article to DDB from the UI
+func (a *App) AddPost(post backend.Post) error {
+	return backend.AddPost(post)
+}

@@ -1,63 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { GetAllPosts } from "../../wailsjs/go/main/App";
+import React from "react";
+import "./PostList.css";
 
-const PostList = () => {
-  const [posts, setPosts] = useState([]);
-  const [error, setError] = useState("");
-
-  // Fetch all posts from the backend
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const result = await GetAllPosts();
-        setPosts(result);
-      } catch (err) {
-        console.error("Failed to fetch posts:", err);
-        setError("Unable to load posts.");
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
-  if (error) {
-    return <p style={{ color: "red" }}>{error}</p>;
+const PostList = ({ posts, onEditPost }) => {
+  if (!posts || posts.length === 0) {
+    return (
+      <div className="content-container">
+        <div className="section-header">
+          <h2>Posts</h2>
+        </div>
+        <p className="no-posts">No posts available.</p>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h2>Posts</h2>
-      {posts.length > 0 ? (
-        <ul style={{ listStyleType: "none", padding: 0 }}>
-          {posts.map((post) => (
-            <li
-              key={post.id}
-              style={{
-                border: "1px solid #ccc",
-                borderRadius: "8px",
-                margin: "8px 0",
-                padding: "16px",
-                backgroundColor: "#f9f9f9",
-              }}
-            >
-              <h3>{post.title || "Untitled Post"}</h3>
-              <p>
-                <strong>Published On:</strong>{" "}
-                {post.publish_date || "Unknown Date"}
-              </p>
-              <p>
-                <strong>Category:</strong> {post.category || "Uncategorized"}
-              </p>
-              <p>
-                <strong>Tags:</strong>{" "}
-                {post.tags ? post.tags.split(",").join(", ") : "None"}
-              </p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No posts available.</p>
-      )}
+    <div className="content-container">
+      <div className="section-header">
+        <h2>Posts</h2>
+      </div>
+      <ul className="post-list">
+        {posts.map((post) => (
+          <li key={post.id} className="post-item">
+            <h3 className="post-title">{post.title || "Untitled Post"}</h3>
+            <p><strong>Published On:</strong> {post.publish_date || "Unknown Date"}</p>
+            <p><strong>Category:</strong> {post.category || "Uncategorized"}</p>
+            <p>
+              <strong>Tags:</strong> {post.tags ? post.tags.split(",").join(", ") : "None"}
+            </p>
+            <div className="post-actions">
+              <button
+                className="edit-button"
+                onClick={() => onEditPost(post)}
+              >
+                Edit
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

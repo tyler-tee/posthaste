@@ -1,26 +1,134 @@
 html {
-    background-color: rgba(27, 38, 54, 1);
-    text-align: center;
-    color: white;
+    background-color: #1b2636;
+    font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+    color: #fff;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     margin: 0;
-    color: black;
-    font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 @font-face {
     font-family: "Nunito";
     font-style: normal;
     font-weight: 400;
-    src: local(""),
-    url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
+    src: url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
 }
 
 #app {
-    height: 100vh;
-    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main Header (Top Navigation) */
+.main-header {
+    background-color: #1b2636;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    border-bottom: 3px solid #007bff;
+    box-sizing: border-box;
+}
+
+.app-title {
+    margin: 0;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.main-nav {
+    display: flex;
+    gap: 30px;
+}
+
+.main-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding-bottom: 2px;
+    transition: color 0.3s;
+}
+
+.main-nav a:hover {
+    color: #007bff;
+}
+
+.main-nav a.active {
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 2px;
+}
+
+/* Main Content Area */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 0;
+    box-sizing: border-box;
+    color: black;
+}
+
+/* Shared container for both the PostList and NewPost sections */
+.content-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 20px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Shared section header for sub-sections within .content-container */
+.section-header {
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .main-nav {
+        gap: 20px;
+    }
+
+    main {
+        padding: 20px 0;
+    }
+
+    .content-container {
+        padding: 20px;
+    }
+
+    .section-header h2 {
+        font-size: 18px;
+    }
 }

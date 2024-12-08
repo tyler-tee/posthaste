@@ -9,3 +9,7 @@ export function AddPost(arg1) {
 export function GetAllPosts() {
   return window['go']['main']['App']['GetAllPosts']();
 }
+
+export function UpdatePost(arg1) {
+  return window['go']['main']['App']['UpdatePost'](arg1);
+}

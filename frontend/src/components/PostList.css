@@ -1,0 +1,50 @@
+.post-list-error {
+    color: #ff6b6b;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.post-item {
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    font-size: 15px;
+    line-height: 1.6;
+    transition: transform 0.2s;
+}
+
+.post-item:hover {
+    transform: scale(1.01);
+}
+
+.post-title {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.no-posts {
+    font-size: 16px;
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    .post-item {
+        padding: 15px;
+    }
+
+    .post-title {
+        font-size: 16px;
+    }
+}

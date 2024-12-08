@@ -5,3 +5,5 @@ import {backend} from '../models';
 export function AddPost(arg1:backend.Post):Promise<void>;
 
 export function GetAllPosts():Promise<Array<backend.Post>>;
+
+export function UpdatePost(arg1:backend.Post):Promise<void>;

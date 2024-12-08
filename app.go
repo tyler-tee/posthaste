@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"log"
 	"posthaste/backend"
 )
@@ -30,4 +31,12 @@ func (a *App) GetAllPosts() ([]backend.Post, error) {
 // AddPost adds a new article to DDB from the UI
 func (a *App) AddPost(post backend.Post) error {
 	return backend.AddPost(post)
+}
+
+func (a *App) UpdatePost(post backend.Post) error {
+    // Validate if required
+    if post.ID == "" {
+        return errors.New("post ID is required to update a post")
+    }
+    return backend.UpdatePost(post)
 }

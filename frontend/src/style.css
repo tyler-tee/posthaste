@@ -1,8 +1,6 @@
 html {
     background-color: #1b2636;
-    font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-        sans-serif;
+    font-family: "Nunito", sans-serif;
     color: #fff;
     height: 100%;
     margin: 0;
@@ -16,33 +14,32 @@ body {
     flex-direction: column;
 }
 
-@font-face {
-    font-family: "Nunito";
-    font-style: normal;
-    font-weight: 400;
-    src: url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
-}
-
 #app {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-/* Main Header (Top Navigation) */
+/* Main Header (Top Navigation + Page Title) */
 .main-header {
     background-color: #1b2636;
+    border-bottom: 3px solid #007bff;
+    box-sizing: border-box;
+    padding: 10px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Space between top row and page title row */
+}
+
+.top-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 40px;
-    border-bottom: 3px solid #007bff;
-    box-sizing: border-box;
 }
 
 .app-title {
     margin: 0;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     color: #fff;
 }
@@ -70,50 +67,57 @@ body {
     padding-bottom: 2px;
 }
 
+.page-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-top: 1px solid #2c3e50;
+    padding-top: 5px;
+}
+
+.page-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
 /* Main Content Area */
 main {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 40px 0;
+    padding: 10px 0;
     box-sizing: border-box;
     color: black;
 }
 
-/* Shared container for both the PostList and NewPost sections */
+/* Shared container for content */
 .content-container {
     width: 100%;
-    max-width: 1200px;
-    margin: 0 20px;
+    max-width: 1400px;
+    margin: 20 20px;
     padding: 30px;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     color: #333;
     box-sizing: border-box;
+    min-height: 100vh;
 }
 
-/* Shared section header for sub-sections within .content-container */
-.section-header {
-    border-bottom: 2px solid #dee2e6;
-    padding-bottom: 10px;
-    margin-bottom: 30px;
+.no-posts {
+    font-size: 16px;
+    color: #555;
 }
 
-.section-header h2 {
-    margin: 0;
-    font-size: 20px;
-    font-weight: 600;
-    color: #333;
-}
-
-/* Responsive adjustments */
+/* Media Queries */
 @media (max-width: 768px) {
-    .main-header {
+    .top-row {
         flex-direction: column;
         align-items: flex-start;
-        gap: 20px;
+        gap: 15px;
     }
 
     .main-nav {
@@ -128,7 +132,7 @@ main {
         padding: 20px;
     }
 
-    .section-header h2 {
-        font-size: 18px;
+    .page-title {
+        font-size: 16px;
     }
 }

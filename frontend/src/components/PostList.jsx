@@ -5,9 +5,6 @@ const PostList = ({ posts, onEditPost }) => {
   if (!posts || posts.length === 0) {
     return (
       <div className="content-container">
-        <div className="section-header">
-          <h2>Posts</h2>
-        </div>
         <p className="no-posts">No posts available.</p>
       </div>
     );
@@ -15,9 +12,6 @@ const PostList = ({ posts, onEditPost }) => {
 
   return (
     <div className="content-container">
-      <div className="section-header">
-        <h2>Posts</h2>
-      </div>
       <ul className="post-list">
         {posts.map((post) => (
           <li key={post.id} className="post-item">

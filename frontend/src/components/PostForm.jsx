@@ -19,11 +19,11 @@ const PostForm = ({ mode = "create", initialData = {}, onSubmit }) => {
     content: initialData.content || "",
     category: initialData.category || "",
     tags: initialData.tags ? initialData.tags.split(",") : [],
-    published: !!initialData.published,   // Use published instead of publish
+    published: !!initialData.published,
     publish_date: initialData.publish_date || "",
     slug: initialData.slug || ""
   });
-  
+
   useEffect(() => {
     if (mode === "edit") {
       setFormData({
@@ -36,9 +36,11 @@ const PostForm = ({ mode = "create", initialData = {}, onSubmit }) => {
         publish_date: initialData.publish_date || "",
         slug: initialData.slug || ""
       });
+    } else {
+      // In create mode, do not reset formData on every render, allow typing.
     }
-  }, [initialData, mode]);  
-  
+  }, [initialData, mode]);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -59,16 +61,13 @@ const PostForm = ({ mode = "create", initialData = {}, onSubmit }) => {
     e.preventDefault();
     const finalData = {
       ...formData,
-      tags: formData.tags.join(","), // Convert array to comma-separated string
+      tags: formData.tags.join(","),
     };
     if (onSubmit) onSubmit(finalData);
   };
 
   return (
     <div className="content-container">
-      <div className="section-header">
-        <h2>{mode === "edit" ? "Edit Post" : "Create a New Post"}</h2>
-      </div>
       <div className="content-grid">
         <div className="form-column">
           <form onSubmit={handleSubmit}>
@@ -97,18 +96,18 @@ const PostForm = ({ mode = "create", initialData = {}, onSubmit }) => {
               <div>
                 <label htmlFor="category">Category:</label>
                 <select
-                id="category"
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-              >
-                <option value="">Select a category</option>
-                {Object.entries(ARTICLE_CATS).map(([visible, slug]) => (
-                  <option key={slug} value={slug}>
-                    {visible}
-                  </option>
-                ))}
-              </select>
+                  id="category"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                >
+                  <option value="">Select a category</option>
+                  {Object.entries(ARTICLE_CATS).map(([visible, slug]) => (
+                    <option key={slug} value={slug}>
+                      {visible}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label htmlFor="tags">Tags:</label>
@@ -128,16 +127,16 @@ const PostForm = ({ mode = "create", initialData = {}, onSubmit }) => {
               </div>
             </div>
             <div className="publish-submit-row">
-            <label htmlFor="published">
-              <input
-                id="published"
-                name="published"
-                type="checkbox"
-                checked={formData.published}
-                onChange={handleChange}
-              />
-              Publish?
-            </label>
+              <label htmlFor="published">
+                <input
+                  id="published"
+                  name="published"
+                  type="checkbox"
+                  checked={formData.published}
+                  onChange={handleChange}
+                />
+                Publish?
+              </label>
               <button type="submit" className="submit-button">
                 {mode === "edit" ? "Update" : "Submit"}
               </button>

@@ -8,7 +8,6 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [editingPost, setEditingPost] = useState(null);
 
-  // Fetch all posts initially and whenever we return to "view" mode
   useEffect(() => {
     if (activeTab === "view") {
       fetchPosts();
@@ -36,10 +35,9 @@ const App = () => {
   };
 
   const handleEditPostClick = (post) => {
-    console.log("Editing post:", post); // Check if post.id exists
     setEditingPost(post);
     setActiveTab("edit");
-  };  
+  };
 
   const handleUpdatePostData = async (updatedData) => {
     try {
@@ -53,33 +51,41 @@ const App = () => {
     }
   };
 
+  let pageTitle = "";
+  if (activeTab === "view") pageTitle = "Posts";
+  if (activeTab === "create") pageTitle = "Create a New Post";
+  if (activeTab === "edit") pageTitle = "Edit Post";
+
   return (
     <div className="App">
       <header className="main-header">
-        <h1 className="app-title">PostHaste</h1>
-        <nav className="main-nav">
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              setActiveTab("view");
-            }}
-            className={activeTab === "view" ? "active" : ""}
-          >
-            View Posts
-          </a>
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              setEditingPost(null);
-              setActiveTab("create");
-            }}
-            className={activeTab === "create" ? "active" : ""}
-          >
-            Create Post
-          </a>
-        </nav>
+        <div className="top-row">
+          <h1 className="app-title">PostHaste</h1>
+          <nav className="main-nav">
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setEditingPost(null);
+                setActiveTab("view");
+              }}
+              className={activeTab === "view" ? "active" : ""}
+            >
+              View Posts
+            </a>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setEditingPost(null);
+                setActiveTab("create");
+              }}
+              className={activeTab === "create" ? "active" : ""}
+            >
+              Create Post
+            </a>
+          </nav>
+        </div>
       </header>
       <main>
         {activeTab === "view" && <PostList posts={posts} onEditPost={handleEditPostClick} />}

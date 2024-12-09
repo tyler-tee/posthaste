@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"sort"
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -62,6 +63,10 @@ func GetAllPosts() ([]Post, error) {
 		}
 		posts = append(posts, post)
 	}
+	// Sort posts by publish_date in descending order (newest first)
+	sort.Slice(posts, func(i, j int) bool {
+		return posts[i].PublishDate > posts[j].PublishDate
+	})
 	return posts, nil
 }
 

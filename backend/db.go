@@ -14,6 +14,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 
 	"github.com/google/uuid"
+	"github.com/gosimple/slug"
 )
 
 // DynamoDB client
@@ -66,13 +67,16 @@ func GetAllPosts() ([]Post, error) {
 
 // Add a new post
 func AddPost(post Post) error {
+	// Validation: Ensure required fields are provided
+	if post.Title == "" || post.Content == "" {
+		return errors.New("title and content are required")
+	}
+	
     // Generate a unique UUID for the new post
     post.ID = uuid.New().String()
 
-    // Validation: Ensure required fields are provided
-    if post.Title == "" || post.Content == "" {
-        return errors.New("title and content are required")
-    }
+	// Generate new slug based on title
+	post.Slug = slug.Make(post.Title)
 
     // Set default publish_date to today's date if not provided
     if post.PublishDate == "" {
@@ -90,6 +94,7 @@ func AddPost(post Post) error {
         TableName: aws.String("articles"),
         Item:      item,
     })
+
     if err != nil {
         return fmt.Errorf("failed to add post: %w", err)
     }

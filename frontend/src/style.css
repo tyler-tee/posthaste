@@ -116,11 +116,6 @@ main {
     padding-bottom: 10px;
 }
 
-/* Main Content Container */
-.main-content {
-    /* Additional spacing if desired */
-}
-
 .no-posts {
     font-size: 16px;
     color: var(--text-secondary);

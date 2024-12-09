@@ -4,14 +4,14 @@ import "./PostList.css";
 const PostList = ({ posts, onEditPost }) => {
   if (!posts || posts.length === 0) {
     return (
-      <div className="content-container">
+      <div>
         <p className="no-posts">No posts available.</p>
       </div>
     );
   }
 
   return (
-    <div className="content-container">
+    <div>
       <ul className="post-list">
         {posts.map((post) => (
           <li key={post.id} className="post-item">

@@ -58,47 +58,52 @@ const App = () => {
 
   return (
     <div className="App">
-      <header className="main-header">
-        <div className="top-row">
-          <h1 className="app-title">PostHaste</h1>
-          <nav className="main-nav">
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setEditingPost(null);
-                setActiveTab("view");
-              }}
-              className={activeTab === "view" ? "active" : ""}
-            >
-              View Posts
-            </a>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setEditingPost(null);
-                setActiveTab("create");
-              }}
-              className={activeTab === "create" ? "active" : ""}
-            >
-              Create Post
-            </a>
-          </nav>
-        </div>
-      </header>
       <main>
-        {activeTab === "view" && <PostList posts={posts} onEditPost={handleEditPostClick} />}
-        {activeTab === "create" && (
-          <PostForm mode="create" onSubmit={handleAddPost} />
-        )}
-        {activeTab === "edit" && editingPost && (
-          <PostForm
-            mode="edit"
-            initialData={editingPost}
-            onSubmit={handleUpdatePostData}
-          />
-        )}
+        {/* Wrap everything in a single content-container to unify the look */}
+        <div className="content-container top-section">
+          <div className="top-bar">
+            <h1 className="app-title">PostHaste</h1>
+            <nav className="main-nav">
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setEditingPost(null);
+                  setActiveTab("view");
+                }}
+                className={activeTab === "view" ? "active" : ""}
+              >
+                View Posts
+              </a>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setEditingPost(null);
+                  setActiveTab("create");
+                }}
+                className={activeTab === "create" ? "active" : ""}
+              >
+                Create Post
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        {/* Below the top-section, we show either PostList or PostForm in another card or in the same container */}
+        <div className="content-container main-content">
+          {activeTab === "view" && <PostList posts={posts} onEditPost={handleEditPostClick} />}
+          {activeTab === "create" && (
+            <PostForm mode="create" onSubmit={handleAddPost} />
+          )}
+          {activeTab === "edit" && editingPost && (
+            <PostForm
+              mode="edit"
+              initialData={editingPost}
+              onSubmit={handleUpdatePostData}
+            />
+          )}
+        </div>
       </main>
     </div>
   );

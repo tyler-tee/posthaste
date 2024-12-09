@@ -1,28 +1,27 @@
+/* Ensure all sizing is predictable */
 * {
-    box-sizing: border-box; /* Ensure all elements calculate widths including padding/border */
+    box-sizing: border-box;
 }
 
-.content-grid {
+/* The container that holds the form column and the preview column */
+.form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
     gap: 40px;
     align-items: start;
     width: 100%;
-    box-sizing: border-box;
+    max-width: 1200px; /* Adjust if needed */
+    margin: 0 auto;
 }
 
+/* The left column containing the form */
 .form-column {
     display: flex;
     flex-direction: column;
-    max-width: 600px; /* Controls the total width of form elements */
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.form-column form {
     width: 100%;
 }
 
+/* Input rows, category-tags, and publish-submit all full width within .form-column */
 .form-row,
 .category-tags-row,
 .publish-submit-row {
@@ -32,7 +31,6 @@
     margin-bottom: 20px;
 }
 
-/* Category and tags side-by-side */
 .category-tags-row {
     flex-direction: row;
     gap: 20px;
@@ -44,30 +42,27 @@
     flex-direction: column;
 }
 
-/* Publish and submit row side-by-side */
+/* Publish & submit row side-by-side */
 .publish-submit-row {
     flex-direction: row;
-    gap: 15px;
     align-items: center;
+    gap: 15px;
     margin-top: 10px;
 }
 
-/* Labels */
-.form-row label,
-.category-tags-row label,
-.publish-submit-row label {
+label {
     font-size: 15px;
     font-weight: 500;
     color: #333;
     margin-bottom: 8px;
 }
 
-/* Inputs and selects fill their parent width, do not overflow */
+/* Inputs, textarea, and select fill their parent width */
 input[type="text"],
 textarea,
 select {
     width: 100%;
-    max-width: 100%; /* Prevent any accidental overflow */
+    max-width: 100%;
     padding: 12px 14px;
     border: 1px solid #ced4da;
     border-radius: 6px;
@@ -85,11 +80,11 @@ select:focus {
 }
 
 textarea {
-    min-height: 315px;
+    min-height: 250px;
     resize: vertical;
 }
 
-/* Checkbox label styling */
+/* Publish checkbox label */
 .publish-submit-row label {
     display: flex;
     align-items: center;
@@ -108,7 +103,7 @@ textarea {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+    box-shadow: 0 4px 6px rgba(0,123,255,0.2);
 }
 
 .submit-button:hover {
@@ -116,29 +111,29 @@ textarea {
     transform: scale(1.03);
 }
 
+/* The preview column on the right */
 .preview-column {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    border-left: 1px solid #dee2e6;
     background-color: #f9f9f9;
     border-radius: 12px;
+    border-left: 1px solid #dee2e6;
+    padding: 20px;
     overflow-y: auto;
     max-height: 600px;
     font-size: 15px;
     box-sizing: border-box;
 }
 
-.preview-column .preview {
+.preview {
     font-size: 15px;
     line-height: 1.5;
     color: #555;
 }
 
 @media (max-width: 768px) {
-    .content-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+    .form-grid {
+        grid-template-columns: 1fr; /* Stack columns on small screens */
     }
 
     .category-tags-row {

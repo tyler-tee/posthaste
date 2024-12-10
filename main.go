@@ -18,8 +18,6 @@ func main() {
 	// Initialize DynamoDB client
 	backend.InitDynamoDB()
 
-	// If needed, you can test backend functionality without directly accessing dbClient
-	// Example: Fetch all posts to verify initialization
 	_, err := backend.GetAllPosts()
 	if err != nil {
 		log.Fatalf("Failed to fetch posts: %v", err)
@@ -36,7 +34,7 @@ func main() {
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
-		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
+		BackgroundColour: &options.RGBA{R: 15, G: 23, B: 42, A: 1},
 		OnStartup:        app.startup,
 		Bind: []interface{}{
 			app,

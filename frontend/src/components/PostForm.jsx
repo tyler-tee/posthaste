@@ -124,18 +124,18 @@ const PostForm = ({ mode = "create", initialData = {}, onSubmit }) => {
             </div>
           </div>
           <div className="publish-submit-row">
-            <label htmlFor="published">
-              <input
-                id="published"
-                name="published"
-                type="checkbox"
-                checked={formData.published}
-                onChange={handleChange}
-              />
-              Publish?
-            </label>
+            <div className="publish-container">
+                <input
+                    id="published"
+                    name="published"
+                    type="checkbox"
+                    checked={formData.published}
+                    onChange={handleChange}
+                />
+                <label htmlFor="published">Publish?</label>
+            </div>
             <button type="submit" className="submit-button">
-              {mode === "edit" ? "Update" : "Submit"}
+                {mode === "edit" ? "Update" : "Submit"}
             </button>
           </div>
         </form>

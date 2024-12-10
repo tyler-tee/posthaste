@@ -1,5 +1,5 @@
 .post-list-error {
-    color: #ff6b6b;
+    color: var(--error, #ff6b6b);
     font-size: 16px;
     font-weight: 500;
 }
@@ -11,15 +11,14 @@
 }
 
 .post-item {
-    background-color: #ffffff;
-    color: #333;
+    background-color: var(--surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
     border-radius: 12px;
     margin-bottom: 20px;
-    padding: 20px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    font-size: 15px;
-    line-height: 1.6;
-    transition: transform 0.2s;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
 }
 
 .post-item:hover {
@@ -27,34 +26,29 @@
 }
 
 .post-title {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 18px;
+    color: var(--primary);
+    margin-bottom: 16px;
+    font-size: 20px;
     font-weight: 600;
-    color: #333;
 }
 
 .edit-button {
     padding: 8px 20px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--primary);
+    color: var(--text-primary);
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
 .edit-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.03);
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
 }
 
 .no-posts {
-    font-size: 16px;
-    color: #555;
+    color: var(--text-secondary);
 }
 
 @media (max-width: 768px) {

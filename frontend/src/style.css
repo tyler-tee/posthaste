@@ -1,6 +1,6 @@
 :root {
     /* Modern Dark Theme - Enhanced */
-    --primary: #60a5fa;          /* Bright blue */
+    --primary: #f8fafc;          /* Bright blue */
     --primary-hover: #3b82f6;    /* Darker blue for hover */
     --background: #1e1e2e;       /* Deep background */
     --surface: #252b3b;          /* Surface color */
@@ -51,7 +51,7 @@ label {
 
 html {
     background-color: var(--background);
-    font-family: "Nunito", sans-serif;
+    font-family: "Times New Roman", sans-serif;
     color: var(--text-primary);
     height: 100%;
     width: 100%;

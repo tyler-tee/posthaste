@@ -34,11 +34,11 @@
 
 .edit-button {
     padding: 8px 20px;
-    background-color: var(--primary);
-    color: var(--text-primary);
+    background-color: #61dbfb;
+    color: #251717;
     border: none;
     border-radius: 8px;
-    font-weight: 500;
+    font-weight: bolder;
     transition: all 0.2s ease;
 }
 

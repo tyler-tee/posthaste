@@ -113,13 +113,11 @@ select {
 
 .submit-button {
     padding: 8px 20px;
-    background-color: var(--primary);
-    color: var(--text-primary);
+    background-color: #61dbfb;
+    color: #251717;
     border: none;
     border-radius: 8px;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
+    font-weight: bold;
     transition: all 0.2s ease;
 }
 

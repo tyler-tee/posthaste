@@ -140,18 +140,19 @@ select {
 }
 
 .submit-button {
-    padding: 8px 20px;
-    background-color: #61dbfb;
-    color: #251717;
+    background: var(--gradient-primary);
+    color: var(--text-primary);
     border: none;
+    padding: 8px 20px;
     border-radius: 8px;
-    font-weight: bold;
+    font-weight: 600;
+    cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .submit-button:hover {
-    background-color: var(--primary-hover);
     transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
 }
 
 input[type="checkbox"] {

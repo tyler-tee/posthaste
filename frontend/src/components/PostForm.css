@@ -23,14 +23,42 @@
 
 /* Preview column */
 .preview-column {
-    background-color: var(--surface);
+    background: var(--surface);
     border-radius: 12px;
     padding: 24px;
-    color: var(--text-primary);
     border: 1px solid var(--border);
-    overflow-wrap: break-word; /* Handle long words */
+    position: sticky;
+    top: 20px;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    
+    /* Make preview independently scrollable */
+    height: calc(100vh - 140px); /* Adjust based on your top bar height */
     overflow-y: auto;
-    max-height: 80vh;
+    
+    /* Improve scroll appearance */
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--surface);
+}
+
+/* Custom scrollbar for webkit browsers */
+.preview-column::-webkit-scrollbar {
+    width: 8px;
+}
+
+.preview-column::-webkit-scrollbar-track {
+    background: var(--surface);
+    border-radius: 4px;
+}
+
+.preview-column::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+.preview-column::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
 }
 
 /* Preview content */

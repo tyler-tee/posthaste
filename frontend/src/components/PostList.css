@@ -1,9 +1,3 @@
-.post-list-error {
-    color: var(--error, #ff6b6b);
-    font-size: 16px;
-    font-weight: 500;
-}
-
 .post-list {
     list-style: none;
     margin: 0;
@@ -11,8 +5,7 @@
 }
 
 .post-item {
-    background-color: var(--surface);
-    color: var(--text-primary);
+    background: var(--gradient-surface);
     border: 1px solid var(--border);
     border-radius: 12px;
     margin-bottom: 20px;
@@ -22,7 +15,8 @@
 }
 
 .post-item:hover {
-    transform: scale(1.01);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(108, 92, 231, 0.1);
 }
 
 .post-title {
@@ -33,30 +27,34 @@
 }
 
 .edit-button {
-    padding: 8px 20px;
-    background-color: #61dbfb;
-    color: #251717;
+    background: var(--gradient-primary);
+    color: var(--text-primary);
     border: none;
+    padding: 8px 20px;
     border-radius: 8px;
-    font-weight: bolder;
+    font-weight: 600;
+    cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .edit-button:hover {
-    background-color: var(--primary-hover);
     transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
 }
 
 .no-posts {
     color: var(--text-secondary);
+    font-size: 16px;
+    text-align: center;
+    padding: 20px;
 }
 
 @media (max-width: 768px) {
     .post-item {
-        padding: 15px;
+        padding: 16px;
     }
 
     .post-title {
-        font-size: 16px;
+        font-size: 18px;
     }
 }
